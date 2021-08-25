@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'uto'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_19da11f6c7a544eb9fd5af9ec29dc82f }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e3141276a7fa47219d599e11fefe024b }}
         package: .
