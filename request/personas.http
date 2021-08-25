@@ -24,3 +24,6 @@ Content-Type: application/json
     "nombre" : "pepe perez lopez",
     "pais": "españa"
 }
+
+###
+DELETE {{api}}/10

@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const { getConn, sql } = require("../database/conn");
 const router = Router();
+router.get("/",(req,res)=>{
+    res.send('hola')
+})
 router.get("/personas", async (req, res) => {
   try {
     const pool = await getConn();
