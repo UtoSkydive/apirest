@@ -1,4 +1,5 @@
 const { Router } = require("express");
+var uniqid = require('uniqid');
 const { getConn, sql } = require("../database/conn");
 const router = Router();
 router.get("/",(req,res)=>{
@@ -31,17 +32,20 @@ router.get("/personas/:id", async (req, res) => {
 });
 
 router.post("/personas", async (req, res) => {
+  const id=uniqid()
   const { nombre, pais } = req.body;
   try {
     const pool = await getConn();
     await pool
       .request()
+      .input("id", sql.VarChar, id)
       .input("nombre", sql.VarChar, nombre)
       .input("pais", sql.VarChar, pais)
-      .query("INSERT INTO personasdb (nombre,pais) VALUES (@nombre,@pais)");
+      .query("INSERT INTO personasdb (id,nombre,pais) VALUES (@id,@nombre,@pais)");
     res.json({
       status: "Persona Guardada",
       data: {
+        id,
         nombre,
         pais,
       },
