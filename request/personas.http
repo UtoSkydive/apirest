@@ -17,13 +17,13 @@ GET {{api}}/2
 
 
 ###
-PUT {{api}}/1
+PUT {{api}}/1529hswkt0b078
 Content-Type: application/json
 
 {
-    "nombre" : "pepe perez lopez",
+    "nombre" : "Augusto",
     "pais": "españa"
 }
 
 ###
-DELETE {{api}}/10
+DELETE {{api}}/4051mw1akssehwdn

@@ -25,7 +25,11 @@ router.get("/personas/:id", async (req, res) => {
       .input("id", id)
       .query("SELECT  * FROM personasdb where id =@id");
     console.log(result);
-    res.send(result.recordset[0]);
+    if(result.recordset.length === 0){
+      res.json({result:'FAIL', msg:'No se Encuentra info'});
+     
+    } 
+    res.json(result.recordset[0]);
   } catch (error) {
     console.log(error);
   }
@@ -69,9 +73,17 @@ router.put("/personas/:id", async (req, res) => {
         "UPDATE personasdb SET nombre = @nombre, pais= @pais WHERE id = @id"
       );
     console.log(result);
-    res.json({
-      status: "Persona Actualizada",
-    });
+    if(result.rowsAffected == 0 ){
+      res.json({
+        msg:'no se pudo actualizar id no existe'
+      })
+    }else{
+      res.json({
+        status: "Persona Actualizada",
+      });
+
+    }
+    
   } catch (error) {
     console.log(error);
   }
@@ -81,11 +93,20 @@ router.delete("/personas/:id",async(req, res)=>{
     try {
         const { id } = req.params;
         const pool = await getConn()
-        await pool
+        let result=await pool
             .request()
             .input("id",id)
             .query('DELETE FROM personasdb WHERE id=@id')
-        res.json('Persona Eliminada')
+        console.log(result)
+        console.log(result.rowsAffected == 0 ? 'no hay data' : 'si')
+        if(result.rowsAffected == 0 ){
+          res.json({
+            msg:'no se pudo eliminar id no existe'
+          })
+        }else{
+          res.json('Persona Eliminada')
+
+        }
     } catch (error) {
         console.log(error)
     }
